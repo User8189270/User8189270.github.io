@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Structures Guide</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+
+        h1 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        .ds-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .diagram {
+            background: #f0f0f0;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 4px solid #3498db;
+            font-family: monospace;
+            white-space: pre-wrap;
+            overflow-x: auto;
+        }
+
+        .details {
+            margin: 15px 0;
+            padding: 10px;
+            background: #ffffff;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Data Structures & Algorithms</h1>
+
+    <!-- Array Section -->
+    <div class="ds-section">
+        <h2>1. Arrays</h2>
+        <p><strong>Definition: </strong>An array is a fixed-size collection of elements stored in contiguous memory locations.<br>Each element is identified by an index, which allows fast access.</p>
+        <div class="diagram">
+Index: 0   1   2   3   4  
+Value: 10  20  30  40  50
+        </div>
+        <div class="details">
+            <strong>Types of Arrays:</strong><br>One-Dimensional Array (1D Array): A simple list of elements.<br>Multi-Dimensional Array: Includes 2D and 3D arrays, commonly used for matrices.<br>Dynamic Arrays: Arrays that can grow or shrink, such as Python lists.
+        </div>
+        <div class="details">
+            <strong>Operations on Arrays:</strong><br>
+            Accessing: arr[i] (O(1))<br>
+            Insertion: Adding an element (O(n) in the worst case)<br>
+            Deletion: Removing an element (O(n) in the worst case)<br>
+            Searching: Linear search (O(n)), Binary search (O(log n))<br>
+        </div>
+        <div class="details">
+            <strong>Applications: </strong>Mathematical computations (e.g., matrices in algebra),
+            Image processing (storing pixels),
+            Databases (used in indexing),
+            Computer graphics (storing pixel colors)<br>
+            <strong>Time Complexity:</strong> Access O(1), Search O(n)
+        </div>
+    </div>
+
+    <div class="ds-section">
+        <h2>2. Sparse Matrix</h2>
+        <div class="details">
+            <strong>Definition: </strong>
+A sparse matrix is a matrix in which most elements are zero. It is stored efficiently to save space.
+        </div>
+        <div class="details">
+            <strong>Storage Techniques:</strong><br>
+<li>Coordinate List (COO): Stores only nonzero elements and their positions.<br>
+<li>Compressed Row Storage (CRS): Stores only nonzero values and row pointers.<br>
+<li>Compressed Column Storage (CCS): Similar to CRS but column-oriented.
+        </div>
+        <div class="diagram">
+Original Matrix (4x4):  
+0 0 0 0  
+0 5 0 0  
+0 0 0 7  
+0 0 0 0  
+
+Sparse Format:  
+Row  Col  Value  
+1    1    5  
+2    3    7  
+        </div>
+        <div class="details">
+            <strong>Applications:</strong><br>
+<li>Image compression (e.g., storing black-and-white images efficiently)</li>
+<li>Machine learning (e.g., term-document matrices in NLP)</li>
+<li>Scientific computing (e.g., solving large linear systems)</li>
+        </div>
+    </div>
+
+    <!-- Stack Section -->
+    <div class="ds-section">
+        <h2>3. Stack</h2>
+        <div class="details"><strong>Definition: </strong>
+A stack is a linear data structure that follows the LIFO (Last In, First Out) principle.</div>
+        <div class="diagram">
+Top → 30
+      20
+      10
+        </div>
+        <div class="details"><strong>Operations: </strong> 
+            <li>Push: Insert element at the top (O(1))</li>
+            <li>Pop: Remove the top element (O(1))</li>
+            <li>Peek: Get the top element without removing it (O(1))</li><br>
+            <strong>Applications: </strong>
+
+<li>Undo/Redo operations in text editors</li>
+<li>Expression evaluation (infix to postfix conversion)</li>
+<li>Recursion handling in function calls</li>
+        </div>
+    </div>
+
+    <div class="ds-section">
+        <h2>4. Queues</h2>
+        <div class="details">
+            <strong>Definition: </strong>A queue is a linear data structure following the FIFO (First In, First Out) principle.
+        </div>
+        <div class="diagram">
+Front → 10 → 20 → 30 → Rear  
+        </div>
+        <div class="details">
+            <strong>Operations</strong>
+<li>Enqueue: Insert at the rear (O(1))</li>
+<li>Dequeue: Remove from the front (O(1))</li><br>
+<strong>Types of Queues:</strong>
+<li>Circular Queue: The last position connects to the first.</li>
+<li>Deque (Double-Ended Queue): Insertion and deletion from both ends.</li>
+<li>Priority Queue: Elements are dequeued based on priority.</li><br>
+<strong>Applications</strong>
+<li>CPU scheduling</li>
+<li>Printer queue management</li>
+<li>Network packet processing</li>
+        </div>
+    </div>
+
+    <div class="ds-section">
+        <h2>5. Priority Queue</h2>
+        <div class="details">
+            <strong>Definition: </strong>A queue where each element has a priority, and the highest-priority element is dequeued first.<br>
+        </div>  
+        <div class="diagram">
+Structure (Min-Heap):
+                        5  
+                      /   \  
+                    10    20  
+                   / \  
+                  15 30  
+        </div>
+        <div class="details">
+            <strong>Implementation</strong>
+<li>Heap (Binary Heap, Fibonacci Heap)</li>
+<li>Balanced Binary Search Tree (AVL, Red-Black Tree)</li>
+<strong>Applications</strong>
+<li>Dijkstra’s algorithm (shortest path)</li>
+<li>Task scheduling in OS</li>
+<li>Huffman coding (compression algorithms)</li>
+        </div>
+    </div>
+
+    <div class="ds-section">
+        <h2>6. Linked List</h2>
+        <div class="details">
+            <strong>Definition</strong>
+A linked list is a dynamic data structure where each node contains data and a reference (pointer) to the next node.
+        </div>
+        <div class="diagram">
+Head → [10|→] → [20|→] → [30|X]  
+        </div>
+        <div class="details">
+            <strong>Types</strong>
+<li>Singly Linked List: Each node points to the next node.</li>
+<li>Doubly Linked List: Each node points to both next and previous nodes.</li>
+<li>Circular Linked List: The last node points to the first.</li><br>
+<strong>Operations</strong>
+<li>Insertion (O(1) at head, O(n) at tail)</li>
+<li>Deletion (O(1) at head, O(n) at tail)</li>
+<li>Search (O(n))</li><br>
+<strong>Applications</strong>
+<li>Memory management</li>
+<li>Graph representation (Adjacency list)</li>
+<li>Undo operations in software applications</li>
+        </div>
+    </div>
+
+    <div class="ds-section">
+        <h2>7. Trees</h2>
+        <div class="details">
+            <strong>Definition</strong>
+A hierarchical data structure with nodes connected by edges.
+        </div>
+        <div class="diagram">
+Generic Tree:
+                   A  
+                 / | \  
+                B  C  D  
+               / \  
+              E   F             
+        </div>
+        <div class="details">
+            <strong>Basic Properties</strong>
+<li>Root: Topmost node</li>
+<li>Parent/Child: Nodes connected by edges</li>
+<li>Height: Longest path from root to a leaf</li>
+<li>Depth: Distance from root to a node</li><br>
+<strong>Applications</strong>
+<li>File systems</li>
+<li>Databases (e.g., B-Trees in indexing)</li>
+<li>Artificial intelligence (Decision Trees)</li>
+        </div>
+    </div>
+
+    <div class="ds-section">
+        <h2>8. Forest</h2>
+        <div class="details">
+            
+        </div>
+        <div class="diagram">
+Tree 1:   A       Tree 2:    X  
+         / \                / \  
+        B   C              Y   Z             
+        </div>
+    </div>
+
+
+
+    <!-- Binary Tree Section -->
+    <div class="ds-section">
+        <h2>9. Binary Tree</h2>
+        <div class="details">
+            <strong>Definition</strong>
+A tree where each node has at most two children (left and right).
+        </div>
+        <div class="diagram">
+      15
+     /  \
+    5    20
+   / \
+  3  10
+        </div>
+        <div class="details">
+            <strong>Types</strong>
+<li>Full Binary Tree: Every node has 0 or 2 children.</li>
+<li>Complete Binary Tree: All levels are filled except possibly the last.</li>
+<li>Perfect Binary Tree: All leaves are at the same level.</li><br>
+<strong>Applications</strong>
+<li>Expression trees (mathematical expressions)</li>
+<li>Binary heaps (priority queues)</li>
+<li>Morse code representation</li>
+        </div>
+    </div>
+
+    <!-- Threaded Binary Tree Section -->
+    <div class="ds-section">
+        <h2>10. Threaded Binary Tree</h2>
+        <div class="details">
+            
+        </div>
+        <div class="diagram">
+      10  
+     /  \  
+(→5) → (20→)  
+   /  
+  3  
+        </div>
+        <div class="details"></div>
+    </div>
+
+    <!-- Binary Search Tree Section -->
+    <div class="ds-section">
+        <h2>11. Binary Search Tree</h2>
+        <div class="details">
+            
+        </div>
+        <div class="diagram">
+      15  
+     /  \  
+    5    20  
+   / \  
+  3  10  
+        </div>
+        <div class="details"></div>
+    </div>
+
+    <!-- AVL Tree Section -->
+    <div class="ds-section">
+        <h2>12. AVL Tree</h2>
+        <div class="details">
+            
+        </div>
+        <div class="diagram">
+      20  
+     /  \  
+    10   30  
+   /  
+  5  
+        </div>
+        <div class="details"></div>
+    </div>
+
+    <!-- B Tree Section -->
+    <div class="ds-section">
+        <h2>13. B Tree</h2>
+        <div class="details">
+            
+        </div>
+        <div class="diagram">
+Order 3:
+        [10, 20]  
+       /    |    \  
+[5]   [15]  [25, 30]  
+        </div>
+        <div class="details"></div>
+    </div>
+
+    <!-- B+ Tree Section -->
+    <div class="ds-section">
+        <h2>14. B+ Tree</h2>
+        <div class="diagram">
+Internal Node: [10, 20]
+               /   |   \
+Leaves: [5→10] → [10→20] → [20→30]
+        </div>
+        <div class="details">
+            <strong>Applications:</strong> Database indexing<br>
+            <strong>Advantages:</strong> Efficient range queries
+        </div>
+    </div>
+
+    <!-- B* trees  Section -->
+    <div class="ds-section">
+        <h2>15. B* tree</h2>
+        <div class="details">
+            
+        </div>
+        <div class="diagram"></div>
+        <div class="details"></div>
+    </div>
+
+    <!-- Data Structures for sets Section -->
+    <div class="ds-section">
+        <h2>16. Data Structures for sets</h2>
+        <div class="details">
+            
+        </div>
+        <div class="diagram">
+Hash Table:  
+Index 0: 10 → 30  
+Index 1: 21  
+Index 2: 42  
+        </div>
+        <div class="diagram">
+BST:  
+    20  
+   /  \  
+ 10   30  
+        </div>
+        <div class="details"></div>
+    </div>
+
+    <!-- Graphs Section -->
+    <div class="ds-section">
+        <h2>17. Data Structures for Graphs</h2>
+        <div class="details">
+            
+        </div>
+        <div class="diagram">
+A — B — C  
+|   |  
+D — E  
+        </div>
+        <div class="details"></div>
+    </div>
+
+    <!-- Sorting Algorithms Section -->
+    <div class="ds-section">
+        <h2>18. Sorting Algorithms</h2>
+        <div class="details">
+            
+        </div>
+        <div class="diagram">
+Quick Sort:
+            Pivot (20):  
+            [10, 5, 3] 20 [30, 25]  
+        </div>
+        <div class="diagram">
+Merge Sort:
+            Divide: [10,5,3,20] → [10,5], [3,20]  
+            Merge: [5,10], [3,20] → [3,5,10,20]  
+        </div>
+
+        <div class="details"></div>
+    </div>
+
+    <!-- Searching algorithms Section -->
+    <div class="ds-section">
+        <h2>19. Searching Algorithms</h2>
+        <div class="details">
+            
+        </div>
+        <div class="diagram">
+Binary Search:
+                Sorted Array: [3, 5, 10, 20, 30]  
+                sSearch 20 → Mid = 10 → Right half → Found.  
+        </div>
+        <div class="details"></div>
+    </div>
+
+    <!-- Hash Table Section -->
+    <div class="ds-section">
+        <h2>20. Hash Table</h2>
+        <div class="diagram">
+Index 0: 10 → 30
+Index 1: 21
+Index 2: 12 → 42
+        </div>
+        <div class="details">
+            <strong>Collision Resolution:</strong> Chaining<br>
+            <strong>Average Case:</strong> O(1) search/insert
+        </div>
+    </div>
+
+    <!-- Summary Table -->
+    <div class="ds-section">
+        <h2>Complexity Summary</h2>
+        <table style="width:100%; border-collapse: collapse;">
+            <tr style="background: #3498db; color: white;">
+                <th style="padding: 10px;">Data Structure</th>
+                <th>Time Complexity</th>
+                <th>Applications</th>
+            </tr>
+            <tr style="background: #f8f9fa;">
+                <td style="padding: 10px;">Array</td>
+                <td>Access O(1)</td>
+                <td>Matrix operations</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px;">BST</td>
+                <td>Search O(h)</td>
+                <td>Database indexing</td>
+            </tr>
+            <tr style="background: #f8f9fa;">
+                <td style="padding: 10px;">Hash Table</td>
+                <td>Search O(1)*</td>
+                <td>Caching systems</td>
+            </tr>
+        </table>
+    </div>
+
+</body>
+</html>

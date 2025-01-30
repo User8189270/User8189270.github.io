@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DSA Mastery | Dhavan</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Inherit main site styles */
+        :root {
+            --primary-color: #2A2F4F;
+            --secondary-color: #4B56D2;
+            --accent-color: #43D2FF;
+            --light-bg: #F8F9FF;
+        }
+
+        .dsa-header {
+            background: linear-gradient(45deg, #2A2F4F, #3A4F9F);
+            color: white;
+            padding: 4rem 5%;
+        }
+
+        .topic-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            padding: 2rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .concept-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .concept-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .pill {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin: 0.5rem 0;
+            background: var(--light-bg);
+        }
+
+        .nav-back {
+            color: white;
+            text-decoration: none;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .complexity-visual {
+            width: 100%;
+            height: 120px;
+            background: var(--light-bg);
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+    <header class="dsa-header">
+        <a href="main.html" class="nav-back"><i class="fas fa-arrow-left"></i> Main</a>
+        <h1>Data Structures & Algorithms</h1>
+        <!--p>Comprehensive guide from basic structures to advanced algorithm design</p-->
+    </header>
+
+    <main>
+        <section class="topic-grid">
+            <!-- Core Data Structures -->
+            <div class="concept-card">
+                <a href="dsaFundamentalDataStructures.html" style="text-decoration: none; color:inherit;">
+                <i class="fas fa-layer-group"></i>
+                <h2>Fundamental Structures</h2>
+                <div class="pill">Arrays & Applications</div>
+                <div class="pill">Linked Lists</div>
+                <div class="pill">Trees (BST, AVL, B/B+ Trees)</div>
+                <div class="pill">Graph Structures</div>
+                <div class="pill">Hash Tables</div></a>
+            </div>
+
+            <!-- Algorithm Design -->
+            <div class="concept-card">
+                <i class="fas fa-project-diagram"></i>
+                <h2>Design Techniques</h2>
+                <div class="pill">Divide & Conquer</div>
+                <div class="pill">Dynamic Programming</div>
+                <div class="pill">Greedy Algorithms</div>
+                <div class="pill">Backtracking</div>
+                <div class="pill">Branch & Bound</div>
+            </div>
+
+            <!-- Complexity Analysis -->
+            <div class="concept-card">
+                <i class="fas fa-chart-line"></i>
+                <h2>Complexity Theory</h2>
+                <div class="pill">complexity-visual</div>
+                <div class="pill">Big-O Notation</div>
+                <div class="pill">Space-Time Tradeoffs</div>
+                <div class="pill">Recurrence Relations</div>
+                <div class="pill">NP-Completeness</div>
+            </div>
+
+            <!-- Graph Algorithms -->
+            <div class="concept-card">
+                <i class="fas fa-network-wired"></i>
+                <h2>Graph Algorithms</h2>
+                <div class="pill">BFS/DFS</div>
+                <div class="pill">Shortest Path</div>
+                <div class="pill">Max Flow</div>
+                <div class="pill">Minimum Spanning Tree</div>
+            </div>
+
+            <!-- Advanced Topics -->
+            <div class="concept-card">
+                <i class="fas fa-rocket"></i>
+                <h2>Advanced Concepts</h2>
+                <div class="pill">FFT & String Matching</div>
+                <div class="pill">Parallel Algorithms</div>
+                <div class="pill">Approximation Methods</div>
+                <div class="pill">Randomized Algorithms</div>
+            </div>
+
+            <!-- Sorting & Searching -->
+            <div class="concept-card">
+                <i class="fas fa-sort-amount-down"></i>
+                <h2>Sorting & Searching</h2>
+                <div class="pill">Comparison Sorts</div>
+                <div class="pill">Hashing Techniques</div>
+                <div class="pill">External Sorting</div>
+                <div class="pill">Selection Algorithms</div>
+            </div>
+        </section>
+
+        <!-- Connection to Main Site -->
+        <!--section class="features" style="background: var(--light-bg); padding: 3rem 5%">
+            <h2>Continue Your CS Journey</h2>
+            <div class="grid-container">
+                <a href="index.html#courses" class="course-card">
+                    <i class="fas fa-arrow-right"></i>
+                    <h3>Computer Architecture</h3>
+                    <p>Explore hardware-software interface</p>
+                </a>
+                <a href="index.html#courses" class="course-card">
+                    <i class="fas fa-arrow-right"></i>
+                    <h3>Operating Systems</h3>
+                    <p>Process management and memory systems</p>
+                </a>
+            </div>
+        </section-->
+    </main>
+</body>
+</html>
