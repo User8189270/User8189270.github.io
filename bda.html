@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Guide to R & Hadoop</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chosen Palette: Warm Neutrals (Stone, Sky, Amber) -->
+    <!-- Application Structure Plan: A thematic, non-linear "Learning Pathway" design featuring a persistent side navigation and a central, dynamic content area. This structure breaks the dense outline into manageable, explorable chunks. It avoids a long scroll by presenting one main topic at a time, with interactive elements for deeper dives. A key interaction is a visual diagram of the Hadoop ecosystem, providing context and an alternative navigation path. This design was chosen for usability, transforming a static text document into an engaging educational tool that encourages exploration over linear reading. -->
+    <!-- Visualization & Content Choices: The source report is purely conceptual, so no data charts are used. Information is presented through interactive HTML/CSS components. Goals and methods: 1) Organize: A vertical tab navigation structures the main 7 sections. 2) Relationships: A custom HTML/CSS diagram shows the Hadoop ecosystem. Interaction: Clicking a component displays its details. 3) Compare: Tabbed content cards are used for comparing concepts like Hadoop installation modes. 4) Process Flow: A horizontal stepper visualizes the MapReduce phases. 5) Inform/Detail: Accordions and grids of clickable cards are used for lists like ML algorithms and databases, allowing users to progressively disclose information. This approach was chosen to make abstract concepts tangible and to manage information density effectively. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .nav-link { transition: all 0.2s ease-in-out; }
+        .nav-link.active { background-color: #0369a1; color: white; }
+        .nav-link:not(.active):hover { background-color: #e5e7eb; }
+        .content-card { transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; }
+        .content-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); }
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
+        .diagram-box { transition: all 0.2s ease-in-out; border: 2px solid transparent; }
+        .diagram-box:hover, .diagram-box.active-diagram { border-color: #f59e0b; background-color: #fef3c7; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    </style>
+</head>
+<body class="bg-stone-50 text-stone-800">
+
+    <div id="app" class="flex flex-col md:flex-row min-h-screen">
+        
+        <aside class="w-full md:w-64 lg:w-72 bg-white border-r border-stone-200 p-4 md:p-6 flex-shrink-0">
+            <h1 class="text-xl lg:text-2xl font-bold text-sky-800 mb-6">R & Hadoop Guide</h1>
+            <nav id="navigation" class="space-y-2">
+            </nav>
+        </aside>
+
+        <main id="main-content" class="flex-1 p-4 sm:p-6 lg:p-10">
+        </main>
+
+    </div>
+
+    <script>
+        const reportData = {
+            "section1": {
+                title: "Getting Ready to Use R and Hadoop",
+                intro: "This section covers the foundational steps to set up your environment. You'll learn how to install the necessary tools (R, RStudio, Hadoop) and understand their core features and architecture, preparing you for big data analysis.",
+                content: [
+                    { title: "R & R-Studio Installation", type: "text", text: "Start by installing R, the powerful language for statistical computing, from a CRAN mirror. Then, install RStudio, a user-friendly IDE that enhances productivity with features like a source editor, debugging tools, and workspace management." },
+                    { title: "The Nature of R", type: "text", text: "R is built for data analysis. Key strengths include vectorized operations for efficient data manipulation, rich data structures (vectors, lists, data frames), and a vast ecosystem of packages available through CRAN for nearly any statistical task, including advanced data visualization with `ggplot2`." },
+                    { title: "Hadoop Installation & Features", type: "tabs",
+                        tabs: [
+                            { name: "Intro", content: "Apache Hadoop is a framework for distributed storage and processing of big data on clusters of commodity hardware. Key features are its scalability, fault tolerance (through data replication), cost-effectiveness, and flexibility with various data types." },
+                            { name: "Modes", content: "Hadoop can be installed in three modes: <strong>Standalone</strong> (for learning, no HDFS), <strong>Pseudo-Distributed</strong> (a single-node cluster simulating a distributed environment), and <strong>Fully-Distributed</strong> (a multi-node production setup)." },
+                            { name: "Setup", content: "A typical setup (pseudo-distributed) involves installing Java, configuring passwordless SSH, downloading Hadoop, and editing configuration files like `core-site.xml`, `hdfs-site.xml`, and `yarn-site.xml` to define your environment." }
+                        ]
+                    },
+                    { title: "Hadoop Architecture", type: "diagram", 
+                        diagram: {
+                            title: "Core Hadoop Components",
+                            items: [
+                                { id: 'hdfs', label: 'HDFS', description: 'The Hadoop Distributed File System. It consists of a master NameNode (managing metadata) and multiple slave DataNodes (storing data blocks). Data is replicated for fault tolerance.' },
+                                { id: 'mapreduce', label: 'MapReduce', description: 'A programming model for parallel processing. It involves a Mapper (processing input) and a Reducer (aggregating results), managed by YARN.' },
+                                { id: 'yarn', label: 'YARN', description: 'Yet Another Resource Negotiator. Hadoop\'s cluster resource management layer. It schedules jobs and allocates resources, allowing multiple engines (like MapReduce and Spark) to run on the same cluster.' }
+                            ]
+                        }
+                    },
+                    { title: "The Hadoop Ecosystem", type: "grid",
+                        items: [
+                            { title: "Hive", text: "A data warehouse system for querying data in HDFS using a SQL-like language (HiveQL)." },
+                            { title: "Pig", text: "A high-level platform for creating MapReduce programs using a scripting language called Pig Latin." },
+                            { title: "HBase", text: "A NoSQL, distributed database for real-time read/write access to large datasets." },
+                            { title: "Sqoop", text: "A tool for transferring bulk data between Hadoop and structured datastores like relational databases." },
+                            { title: "Flume", text: "A service for collecting, aggregating, and moving large amounts of streaming data to HDFS." },
+                            { title: "ZooKeeper", text: "A centralized service for managing and coordinating a distributed system." }
+                        ]
+                    }
+                ]
+            },
+            "section2": {
+                title: "Writing Hadoop MapReduce Programs",
+                intro: "Dive into the practical aspects of MapReduce development. This section explains the core principles, fundamental components, and the different ways you can write MapReduce programs using R.",
+                content: [
+                    { title: "The MapReduce Model", type: "stepper",
+                        steps: [
+                            { title: "Map Phase", text: "The Mapper processes input data, which is read as key-value pairs. It applies a function to each pair and outputs a set of intermediate key-value pairs." },
+                            { title: "Shuffle & Sort", text: "Hadoop automatically collects all intermediate pairs from the mappers, sorts them, and groups them by key. This ensures all values for a given key go to the same Reducer." },
+                            { title: "Reduce Phase", text: "The Reducer receives the grouped data (a key and a list of all its associated values). It applies a function to this list to aggregate the values, producing the final output." }
+                        ]
+                    },
+                    { title: "MapReduce Fundamentals", type: "accordion",
+                        items: [
+                            { title: "Input/Output Formats", text: "Define how data is read and written. Common examples include `TextInputFormat` for plain text files and `SequenceFileOutputFormat` for a binary key-value format." },
+                            { title: "Combiner", text: "An optional optimization that performs a local 'mini-reduce' on the map output before the shuffle phase. This reduces the amount of data transferred over the network, improving performance." },
+                            { title: "Partitioner", text: "Controls which reducer receives a given intermediate key. The default partitioner uses a hash function, but you can write a custom one for more control over data distribution." }
+                        ]
+                    },
+                    { title: "Writing MapReduce in R", type: "text", text: "While Java is the native language for Hadoop, R users have several powerful options to write MapReduce jobs. These methods abstract away the Java complexity, allowing you to leverage R's analytical strengths on a distributed scale. The three primary methods are Hadoop Streaming, RHIPE, and the RHadoop package suite." }
+                ]
+            },
+            "section3": {
+                title: "Integrating R and Hadoop",
+                intro: "Explore the primary tools for bridging R's analytical power with Hadoop's distributed framework. This section compares RHIPE and RHadoop, the two main integrated programming environments.",
+                content: [
+                    { title: "Comparison: RHIPE vs. RHadoop", type: "comparison",
+                        items: [
+                            { 
+                                title: "RHIPE", 
+                                text: "Stands for R and Hadoop Integrated Programming Environment. It provides a tight, low-level integration, using RJava to communicate directly with Hadoop's Java API. RHIPE allows you to write MapReduce jobs directly in R, handling complex data serialization automatically.",
+                                points: ["Tightly integrated", "Uses RJava", "Powerful but can be complex to install"]
+                            },
+                            { 
+                                title: "RHadoop", 
+                                text: "A suite of R packages (`rmr2`, `rhdfs`, `rhbase`) that offers a higher-level, more modular interface. `rmr2` (R Map-Reduce) is the core package, often using Hadoop Streaming behind the scenes. It's generally easier to install and use for common tasks.",
+                                points: ["Modular package suite", "Higher-level abstraction", "Easier installation"]
+                            }
+                        ]
+                    },
+                     { title: "The RHadoop Suite", type: "grid",
+                        items: [
+                            { title: "rmr2", text: "The core package for writing MapReduce jobs in R. Provides the `mapreduce()` function." },
+                            { title: "rhdfs", text: "Provides functions to interact directly with HDFS from R (e.g., list files, read, write)." },
+                            { title: "rhbase", text: "Provides functions to interact with the HBase NoSQL database from R." }
+                        ]
+                    }
+                ]
+            },
+            "section4": {
+                title: "Using Hadoop Streaming with R",
+                intro: "Learn about Hadoop Streaming, a language-agnostic utility that lets you use any executable, including R scripts, as your Mapper and Reducer. It's a flexible and straightforward way to run R code on Hadoop.",
+                content: [
+                    { title: "How Streaming Works", type: "text", text: "Hadoop Streaming passes data between the framework and your scripts via standard input (stdin) and standard output (stdout). Hadoop feeds lines of data to your R mapper script via stdin. The script processes the data and prints key-value pairs (usually tab-separated) to stdout. Hadoop then sorts and shuffles this output and feeds it to your R reducer script via stdin for final aggregation." },
+                    { title: "Implementing a Streaming Job", type: "code-block", 
+                      code: `
+# 1. Write mapper.R
+#!/usr/bin/env Rscript
+con <- file("stdin", "r")
+while(length(line <- readLines(con, n=1)) > 0) {
+  # ... processing logic ...
+  cat("key\tvalue\n") 
+}
+
+# 2. Write reducer.R
+#!/usr/bin/env Rscript
+# ... logic to aggregate values for each key ...
+
+# 3. Run the job from the command line
+hadoop jar /path/to/hadoop-streaming.jar \\
+    -files mapper.R,reducer.R \\
+    -mapper mapper.R \\
+    -reducer reducer.R \\
+    -input /input/path \\
+    -output /output/path` 
+                    }
+                ]
+            },
+            "section5": {
+                title: "Data Analytics with R and Hadoop",
+                intro: "Apply your knowledge to real-world scenarios. This section walks through the data analytics lifecycle and presents case studies where the combination of R and Hadoop is used to solve complex problems.",
+                content: [
+                    { title: "The Data Analytics Project Life Cycle", type: "text", text: "A typical project follows these steps: Problem Definition, Data Collection, Data Cleaning & Preprocessing, Exploratory Data Analysis (EDA), Model Building, Model Evaluation, and Deployment. Hadoop is crucial for collection and preprocessing at scale, while R excels at EDA and modeling." },
+                    { title: "Case Studies", type: "accordion",
+                        items: [
+                            { title: "Web Page Categorization", text: "<strong>Problem:</strong> Automatically classify millions of web pages. <strong>Hadoop/R Role:</strong> Hadoop stores and processes the vast text data using MapReduce to extract features (like TF-IDF). R is then used to build and train a classification model (e.g., Naive Bayes, SVM) on the extracted features." },
+                            { title: "Stock Market Analysis", text: "<strong>Problem:</strong> Analyze decades of stock data to find frequency of price changes. <strong>Hadoop/R Role:</strong> HDFS stores terabytes of historical stock data. A MapReduce job can be written in R (using RHadoop) to calculate daily returns in parallel. R is then used on the aggregated results for time series analysis and visualization." },
+                            { title: "Predicting Bulldozer Sale Prices", text: "<strong>Problem:</strong> Predict auction prices from a massive dataset of equipment sales. <strong>Hadoop/R Role:</strong> The large dataset is processed on Hadoop for cleaning and feature engineering. R is used to build a sophisticated regression model (e.g., Random Forest, Gradient Boosting) on a representative sample or the aggregated data to predict prices." }
+                        ]
+                    }
+                ]
+            },
+            "section6": {
+                title: "Big Data Analysis with Machine Learning",
+                intro: "Discover how machine learning algorithms are applied to big data. This section covers supervised and unsupervised learning techniques and how they are implemented in a distributed R and Hadoop environment.",
+                content: [
+                    { title: "Machine Learning Paradigms", type: "tabs",
+                        tabs: [
+                            { name: "Supervised", content: "Learning from labeled data to make predictions. The goal is to map input features to an output label. This includes <strong>Classification</strong> (predicting a category, e.g., spam/not spam) and <strong>Regression</strong> (predicting a continuous value, e.g., price)." },
+                            { name: "Unsupervised", content: "Finding hidden patterns or structure in unlabeled data. The goal is to explore the data. This includes <strong>Clustering</strong> (grouping similar data points, e.g., customer segments) and <strong>Dimensionality Reduction</strong> (reducing variables)." },
+                            { name: "Recommendation", content: "A specialized class of algorithms to predict user preferences. Methods include <strong>Collaborative Filtering</strong> (using user-item interactions) and <strong>Content-based Filtering</strong> (using item attributes). Matrix factorization techniques are common." }
+                        ]
+                    },
+                    { title: "Common Algorithms", type: "grid",
+                        items: [
+                            { title: "Linear/Logistic Regression", text: "Fundamental algorithms for regression and classification tasks, respectively." },
+                            { title: "Decision Trees & Random Forests", text: "Tree-based models. Random Forest is an ensemble method that improves accuracy." },
+                            { title: "Support Vector Machines (SVM)", text: "A powerful classifier that finds an optimal boundary between classes." },
+                            { title: "K-Means Clustering", text: "An iterative algorithm to partition data into K distinct, non-overlapping clusters." },
+                            { title: "Principal Component Analysis (PCA)", text: "A technique for dimensionality reduction, transforming data into a set of uncorrelated principal components." },
+                            { title: "Gradient Boosting Machines", text: "An advanced ensemble method that builds models sequentially to correct errors of prior models." }
+                        ]
+                    }
+                ]
+            },
+            "section7": {
+                title: "Importing and Exporting Data",
+                intro: "A critical part of any data project is getting data in and out of your system. Learn how R and Hadoop interact with a wide variety of data sources, from flat files to relational and NoSQL databases.",
+                content: [
+                    { title: "Interacting with Databases", type: "accordion",
+                        items: [
+                            { title: "Relational DBs (MySQL, PostgreSQL)", text: "<strong>R Integration:</strong> Use `DBI` compatible packages like `RMySQL` to connect and run SQL queries from R. <strong>Hadoop Integration:</strong> Use `Apache Sqoop` for efficient, parallel bulk data transfer between the RDBMS and HDFS." },
+                            { title: "NoSQL DBs (MongoDB, HBase)", text: "<strong>MongoDB:</strong> A document store. Use the `mongolite` package in R. Hadoop can connect via a specific MongoDB Hadoop Connector. <strong>HBase:</strong> A columnar store on HDFS. Use the `rhbase` package in R for real-time lookups." },
+                            { title: "Data Warehouse (Hive)", text: "<strong>R Integration:</strong> Connect to Hive using a JDBC driver with the `RJDBC` package to execute HiveQL queries from an R script. <strong>Hadoop Integration:</strong> Hive is a native part of the Hadoop ecosystem, translating SQL-like queries into MapReduce or Spark jobs." },
+                            { title: "Local/File Data (CSVs, Excel, SQLite)", text: "<strong>R Integration:</strong> R has excellent packages (`readr`, `readxl`, `RSQLite`) for handling these sources. <strong>Hadoop Integration:</strong> These files are typically first loaded into HDFS using commands like `hdfs dfs -put` before being processed by Hadoop." }
+                        ]
+                    }
+                ]
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const navigation = document.getElementById('navigation');
+            const mainContent = document.getElementById('main-content');
+            let activeSection = "section1";
+
+            const renderNav = () => {
+                navigation.innerHTML = '';
+                Object.keys(reportData).forEach(key => {
+                    const section = reportData[key];
+                    const link = document.createElement('a');
+                    link.href = '#';
+                    link.textContent = section.title;
+                    link.dataset.section = key;
+                    link.className = `nav-link block p-3 rounded-md text-stone-700 font-medium ${key === activeSection ? 'active' : ''}`;
+                    link.onclick = (e) => {
+                        e.preventDefault();
+                        activeSection = key;
+                        render();
+                    };
+                    navigation.appendChild(link);
+                });
+            };
+            
+            const createCard = (item) => `<div class="content-card bg-white p-6 rounded-lg shadow-md">${item}</div>`;
+            const createGridItem = (item) => `<div class="content-card bg-white p-4 rounded-lg shadow-sm border border-stone-200">
+                <h4 class="font-bold text-sky-700 mb-2">${item.title}</h4>
+                <p class="text-sm text-stone-600">${item.text}</p>
+            </div>`;
+
+            const renderContent = () => {
+                mainContent.innerHTML = '';
+                const sectionData = reportData[activeSection];
+                if (!sectionData) return;
+
+                const header = document.createElement('div');
+                header.className = 'mb-8';
+                header.innerHTML = `
+                    <h2 class="text-3xl lg:text-4xl font-bold text-stone-800 mb-2">${sectionData.title}</h2>
+                    <p class="text-lg text-stone-600">${sectionData.intro}</p>
+                `;
+                mainContent.appendChild(header);
+
+                const contentContainer = document.createElement('div');
+                contentContainer.className = 'space-y-8';
+                
+                sectionData.content.forEach(item => {
+                    let elementHtml = '';
+                    switch (item.type) {
+                        case 'text':
+                            elementHtml = createCard(`<h3 class="text-xl font-semibold mb-3">${item.title}</h3><p class="text-stone-600 leading-relaxed">${item.text}</p>`);
+                            break;
+                        case 'grid':
+                            elementHtml = createCard(`
+                                <h3 class="text-xl font-semibold mb-4">${item.title || 'Key Components'}</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                    ${item.items.map(createGridItem).join('')}
+                                </div>
+                            `);
+                            break;
+                        case 'accordion':
+                            elementHtml = createCard(`
+                                <h3 class="text-xl font-semibold mb-4">${item.title || 'Details'}</h3>
+                                <div class="space-y-2 accordion-container">
+                                    ${item.items.map((accItem, index) => `
+                                        <div>
+                                            <button class="accordion-button w-full text-left p-4 bg-stone-100 hover:bg-stone-200 rounded-md font-medium flex justify-between items-center">
+                                                <span>${accItem.title}</span>
+                                                <span class="transform transition-transform duration-300">&#9662;</span>
+                                            </button>
+                                            <div class="accordion-content px-4">
+                                                <p class="pt-3 pb-2 text-stone-600">${accItem.text}</p>
+                                            </div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            `);
+                            break;
+                        case 'stepper':
+                            elementHtml = createCard(`
+                                <h3 class="text-xl font-semibold mb-6 text-center">${item.title || 'Process Flow'}</h3>
+                                <div class="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0 md:space-x-4">
+                                    ${item.steps.map((step, index) => `
+                                        <div class="flex-1 text-center">
+                                            <div class="w-12 h-12 bg-sky-700 rounded-full mx-auto flex items-center justify-center text-white font-bold text-xl mb-2">${index + 1}</div>
+                                            <h4 class="font-semibold mb-1">${step.title}</h4>
+                                            <p class="text-sm text-stone-600">${step.text}</p>
+                                        </div>
+                                        ${index < item.steps.length - 1 ? '<div class="flex-grow-0 h-1 w-2/3 md:w-full bg-stone-300 hidden md:block"></div>' : ''}
+                                    `).join('')}
+                                </div>
+                            `);
+                            break;
+                         case 'tabs':
+                            const tabId = `tabs-${Math.random().toString(36).substr(2, 9)}`;
+                            elementHtml = createCard(`
+                                <div class="tab-container" data-tab-id="${tabId}">
+                                    <div class="border-b border-stone-200 mb-4">
+                                        <nav class="-mb-px flex space-x-6" aria-label="Tabs">
+                                            ${item.tabs.map((tab, index) => `
+                                                <button class="tab-button whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm ${index === 0 ? 'border-sky-600 text-sky-700' : 'border-transparent text-stone-500 hover:text-stone-700 hover:border-stone-300'}" data-tab-index="${index}">${tab.name}</button>
+                                            `).join('')}
+                                        </nav>
+                                    </div>
+                                    <div>
+                                        ${item.tabs.map((tab, index) => `
+                                            <div class="tab-content ${index !== 0 ? 'hidden' : ''}" data-tab-index="${index}">
+                                                <p class="text-stone-600">${tab.content}</p>
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                </div>
+                            `);
+                            break;
+                        case 'diagram':
+                             elementHtml = createCard(`
+                                <h3 class="text-xl font-semibold mb-4 text-center">${item.diagram.title}</h3>
+                                <div class="flex flex-col md:flex-row justify-center items-stretch gap-4 p-4 rounded-lg bg-stone-100">
+                                    ${item.diagram.items.map(dItem => `
+                                        <div class="diagram-box flex-1 p-4 rounded-lg cursor-pointer bg-white shadow-sm" data-diagram-id="${dItem.id}">
+                                            <h4 class="font-bold text-center text-sky-800">${dItem.label}</h4>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                                <div id="diagram-description" class="mt-4 p-4 bg-amber-50 rounded-md text-amber-900 border-l-4 border-amber-400 hidden"></div>
+                             `);
+                            break;
+                        case 'comparison':
+                            elementHtml = createCard(`
+                                <h3 class="text-xl font-semibold mb-4">${item.title}</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    ${item.items.map(comp => `
+                                        <div class="border border-stone-200 p-4 rounded-lg">
+                                            <h4 class="text-lg font-bold text-sky-800 mb-3">${comp.title}</h4>
+                                            <p class="text-stone-600 mb-4">${comp.text}</p>
+                                            <ul class="space-y-2">
+                                                ${comp.points.map(pt => `<li class="flex items-start"><span class="text-sky-600 mr-2 mt-1">&#10003;</span><span>${pt}</span></li>`).join('')}
+                                            </ul>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            `);
+                            break;
+                         case 'code-block':
+                            elementHtml = createCard(`
+                                <h3 class="text-xl font-semibold mb-4">Example: Running a Streaming Job</h3>
+                                <div class="bg-stone-800 text-white p-4 rounded-md overflow-x-auto">
+                                    <pre><code class="language-bash">${item.code.trim()}</code></pre>
+                                </div>
+                                <p class="text-sm mt-2 text-stone-500">Note: This is a simplified example showing the structure of the R scripts and the terminal command.</p>
+                            `);
+                            break;
+                    }
+                    contentContainer.innerHTML += elementHtml;
+                });
+                mainContent.appendChild(contentContainer);
+                addEventListeners();
+            };
+
+            const addEventListeners = () => {
+                const accordionContainers = document.querySelectorAll('.accordion-container');
+                accordionContainers.forEach(container => {
+                    const buttons = container.querySelectorAll('.accordion-button');
+                    buttons.forEach(button => {
+                        button.onclick = () => {
+                            const content = button.nextElementSibling;
+                            const icon = button.querySelector('span:last-child');
+                            if (content.style.maxHeight) {
+                                content.style.maxHeight = null;
+                                icon.style.transform = 'rotate(0deg)';
+                            } else {
+                                content.style.maxHeight = content.scrollHeight + "px";
+                                icon.style.transform = 'rotate(-180deg)';
+                            }
+                        };
+                    });
+                });
+                
+                const tabContainers = document.querySelectorAll('.tab-container');
+                tabContainers.forEach(container => {
+                    const buttons = container.querySelectorAll('.tab-button');
+                    const contents = container.querySelectorAll('.tab-content');
+                    buttons.forEach(button => {
+                        button.onclick = () => {
+                            const tabIndex = button.dataset.tabIndex;
+                            buttons.forEach(btn => {
+                                btn.classList.remove('border-sky-600', 'text-sky-700');
+                                btn.classList.add('border-transparent', 'text-stone-500');
+                            });
+                            button.classList.add('border-sky-600', 'text-sky-700');
+                            button.classList.remove('border-transparent', 'text-stone-500');
+
+                            contents.forEach(content => {
+                                if (content.dataset.tabIndex === tabIndex) {
+                                    content.classList.remove('hidden');
+                                } else {
+                                    content.classList.add('hidden');
+                                }
+                            });
+                        };
+                    });
+                });
+
+                const diagramBoxes = document.querySelectorAll('.diagram-box');
+                const descBox = document.getElementById('diagram-description');
+                if(diagramBoxes.length > 0 && descBox) {
+                    const diagramData = reportData[activeSection].content.find(c => c.type === 'diagram').diagram.items;
+                    diagramBoxes.forEach(box => {
+                        box.onclick = () => {
+                            const id = box.dataset.diagramId;
+                            const data = diagramData.find(d => d.id === id);
+
+                            diagramBoxes.forEach(b => b.classList.remove('active-diagram'));
+                            box.classList.add('active-diagram');
+
+                            if (data) {
+                                descBox.innerHTML = data.description;
+                                descBox.classList.remove('hidden');
+                            }
+                        }
+                    });
+                }
+            };
+
+            const render = () => {
+                renderNav();
+                renderContent();
+            };
+
+            render();
+        });
+    </script>
+</body>
+</html>
